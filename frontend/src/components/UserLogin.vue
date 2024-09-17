@@ -27,9 +27,23 @@
       };
     },
     methods:{
-      loginProcess(){
-        console.log(this.username);
-        console.log(this.password);
+      async loginProcess(){
+        const response = await fetch('https://api.example.com/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password
+          })
+        });
+
+        if (response.ok){
+
+        }else{
+          
+        }
       }
     }
   }
@@ -38,13 +52,7 @@
   <style scoped>
   .login-container {
     max-width: 800px;
-    padding-top: 75px;
-    padding-bottom: 75px;
-    padding-left: 50px;
-    padding-right: 50px;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
   }
   
   .login-header {
