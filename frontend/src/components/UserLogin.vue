@@ -1,20 +1,38 @@
 <template>
   <div class="login-container">
-    <div class="login-header">
-      <h1>Welcome!</h1> 
-      <h5>We are ready to manage the inventory.</h5>    
-    </div>
-    <div class="login-body">
-      <label for="username-entry">User</label>
-      <input id="username-entry" required />
-      <label for="password-entry">Password</label>
-      <input id="password-entry" type="password" required />
-    </div>
+    <form @submit.prevent="loginProcess">
+      <div class="login-header">
+        <h1>Welcome!</h1> 
+        <h5>We are ready to manage the inventory.</h5>    
+      </div>
+      <div class="login-body">
+        <label for="username-entry">User</label>
+        <input id="username-entry" v-model="username" required />
+        <label for="password-entry">Password</label>
+        <input id="password-entry" v-model="password" type="password" required />
+      </div>
+      <div class="login-button">
+        <button type="submit">Sign In</button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
-
+export default{
+  data(){
+    return{
+      username: '',
+      password: ''
+    };
+  },
+  methods:{
+    loginProcess(){
+      console.log(this.username);
+      console.log(this.password);
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -55,5 +73,15 @@ input {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+button{
+  background: #244E73;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 20px;
+  height: 40px;
 }
 </style>
