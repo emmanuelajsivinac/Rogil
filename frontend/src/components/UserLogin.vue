@@ -103,7 +103,7 @@
     flex-direction:row;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #F2F2F2;
     background-size: cover;
   }
 
@@ -114,7 +114,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: #EBF1F2;
+    background-color: #F2F2F2;
     border-radius: 8px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
@@ -126,8 +126,8 @@
     display: flex;
     align-items: center;
     padding-left: 30px;
-    color: #7c7b7b;
-    font-size: smaller;
+    color: #F2F2F2;
+    font-size: medium;
   }
 
   .logo-login{
@@ -147,7 +147,7 @@
   .login-header {
     text-align: center;
     margin-bottom: 40px;
-    color:#3E5902;
+    color:#01402E;
   }
   
   h1{
@@ -158,7 +158,7 @@
   h5{
     padding: 0px;
     margin: 0px;
-    font-weight: 300;
+    font-weight: 500;
   }
   
   .login-body {
@@ -171,16 +171,17 @@
   input {
     height: 3vw;
     box-sizing:border-box;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #3d590223;
     border-radius: 8px;
-    background-color: #EBF1F2;
-    color: #3E5902;
+    background-color: #F2F2F2;
+    color: #01402E;
+    font-weight: 500;
   }
 
   input:focus{
     outline: none;
-    border: 1px solid #D93280;
+    border: 1px solid #045a5a;
   }
 
   .options-section{
@@ -189,8 +190,8 @@
     justify-content: space-between;
     align-items: center;
     font-size: small;
-    font-weight: 600;
-    color:#D93280;  
+    font-weight: 500;
+    color:#015958;  
   }  
 
   .checkbox-keep-log{
@@ -206,15 +207,15 @@
     width: 10px;
     height: 10px;
     margin-right: 10px;
-    border: 1px solid #F2C335;
+    border: 1px solid #0FC2C0;
     border-radius: 4px;
-    background-color: #EBF1F2;
+    background-color: #F2F2F2;
     position: relative; /* Añade position relative para el posicionamiento del after */
   }
 
   input[type="checkbox"]:checked {
-    background-color: #F2C335; /* Fondo al seleccionar */
-    border-color: #F2C335; /* Borde del mismo color que el fondo */
+    background-color: #0FC2C0; /* Fondo al seleccionar */
+    border-color: #0FC2C0; /* Borde del mismo color que el fondo */
   }
 
   input[type="checkbox"]:checked::after {
@@ -236,16 +237,18 @@
   button{
     width: inherit;
     height: 3vw;
-    background: #83A603;
-    color: #fff;
+    background: #01402E;
+    color: #F2F2F2;
     border: none;
     border-radius: 4px;
     margin-top: 20px;
+    font-weight: 500;
+    font-size: medium;
   }
 
   button:hover{
-    background: #3E5902;
-    color: #fff;
+    background: #038C65;
+    color: #F2F2F2;
   }
 
   .login-container-footer{
@@ -254,10 +257,11 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding-left: 30px;
-    color: #D93280;
-    font-size: x-small;
-    font-weight: bold;
+    color: #015958;
+    font-size: smaller;
+    font-weight: 500;
   }
 
   .image-container {
