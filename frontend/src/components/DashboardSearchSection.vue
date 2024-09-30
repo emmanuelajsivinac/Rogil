@@ -1,23 +1,24 @@
 <template>
     <div class="search-section">
         <div class="section-A">
-            <h1>Welcome {{ email }} !</h1>
+            <div class="greeting-section">
+                <strong>{{ greeting }} {{ email }} !</strong>
+            </div>
+            <div class="date-section">
+                <p>{{ formated_date }}</p>
+            </div>
         </div>
         <div class="section-B">
-            <div class="search">
-                <img src="./icons/busqueda.png">
-            </div>
-            <div class="user">
-                <div class="user-info">
-                    <p>{{ email }} </p>
-                    <p>Admin</p> 
+            <div class="options-section">
+                <div class="search">                
+                    <img src="./../../public/icons/busqueda.png">
                 </div>
-                <div class="user-option">
-                    <select>
-                        <option value="" disabled selected hidden></option>
-                        <option>Settings</option>
-                        <option>Sign out</option>
-                    </select>
+                <div class="line-v"></div>
+                <div class="notification">
+                    <img src="./../../public/icons/campana.png">
+                </div>
+                <div class="screen-view">
+                    <button>Full screen</button>
                 </div>
             </div>
         </div>
@@ -29,13 +30,27 @@ export default {
     name: 'DashboardSearchSection',
     data() {
         return {
-        email: ''
+        greeting: null,
+        email: '',
+        formated_date: null
         };
     },
 
     created() {
-        console.log('Componente creado');
         this.loadCredentials();
+    },
+
+    mounted(){
+        const date = new Date();
+        const dayList = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const monthList = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        const day = dayList[date.getDay()];
+        const dayNumber = date.getDate();
+        const month = monthList[date.getMonth()];
+        this.formated_date = `${day} ${dayNumber}, ${month}`;
+        
+        const time = date.getHours();
+        this.greeting = time < 12 ? 'Good morning' : time>18 ? 'Good night' : 'Good afternoon';
     },
             
     methods: {
@@ -52,61 +67,31 @@ export default {
     box-sizing:border-box;
     height: 100%;
     width: 100%;
-    padding-left: 30px;
-    padding-right: 30px;
-    margin: 0;
+    padding:0;
     display: flex;
     align-items: center; 
-    justify-content: space-between;
 } 
 
 .section-A{
     height: 100%;
-    width: 65%;
-    font-size: small;
-}
-
-.section-B{
-    height: 100%;
-    width: 35%;
-    font-size: small;
-    display: flex;
-    align-items: center;  
-}
-
-.search{
-    height: 100%;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-img{
-    height: 40%;
-    width: auto;
-
-}
-
-.user{
-    height: 100%;
-    width: 50%;
-    margin: 0;
+    width: 85%;
     padding: 0;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-}
-
-.user-info{
     margin: 0;
-    padding: 0;
-    width: 90%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: start;
+    justify-content:flex-start;
+}
+
+.greeting-section{
+    font-size: x-large;
+    margin: 0;
+    padding: 0;
+}
+
+.date-section{
+    margin: 0;
+    padding: 0;
 }
 
 p{
@@ -114,39 +99,69 @@ p{
     padding: 0;
 }
 
-.user-option{
+.section-B{
+    height: 100%;
+    width: 15%;
+    padding: 0;
+    margin: 0;
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+}
+
+.options-section{
     margin: 0;
     padding: 0;
-    width: 10%;
-    height: 100%;
+    display: flex;
+    height: 3vh;
+    width: 100%;
+}
+
+.search{
+    width: 25%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-select {
-    appearance: none;
-    width: 30px; /* Ajusta el ancho */
+.line-v{
+    width: 1%;
     height: 100%;
+    background-color: #d1d6d7;
+}
+
+.notification{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen-view{
+    width: 49%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    height: 100%;
+    width: 100%;
     border: none;
-    background: url("./icons/menu-puntos-vertical.png") no-repeat center right;
-    background-size: 20px;
-    padding-right: 20px;
-    cursor: pointer;
-    position: relative;
+    border-radius: 4px;
+    background-color: #d1d6d7;
 }
 
-select option {
-    text-align: left;
-    padding-left: 10px;
+button:hover{
+    background-color: #e7edee;
 }
 
-select option[disabled] {
-    display: none;
+img{
+    height: 90%;
+    width: auto;
 }
 
-select option {
-    position: relative;
-    left: -20px;
-}
+
+
 </style>

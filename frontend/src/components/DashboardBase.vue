@@ -9,8 +9,6 @@
             <div class="dashboard-searchsection">
                 <DashboardSearchSection />
             </div>
-            <div class="line-v">
-            </div>
             <div class="dashboard">
             </div>
         </div>
@@ -34,6 +32,7 @@ export default {
 .background-container{
     height: 100vh;
     width: 100vw;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     display: flex;
@@ -55,15 +54,17 @@ export default {
 .dashboard-section{
     height: 100vh;
     width: 80vw;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    background-color: #EBF1F2;
+    background-color: #fff;
+    padding: 30px;
 }
 
 .dashboard-searchsection{
     height: 10vh;
     width: 100%;
-    background-color: #EBF1F2;
+    padding: 0;
 }
 
 .line-v{
