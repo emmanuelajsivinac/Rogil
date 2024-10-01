@@ -190,6 +190,10 @@
     border: 1px solid #045a5a;
   }
 
+  input.-webkit-autofill {
+    border-color: transparent !important; /* Color cuando está lleno */
+}
+
   .options-section{
     margin: 0;
     display: flex;
@@ -207,7 +211,7 @@
   }
 
   .custom-link:hover {
-    color: #023535 /* Cambia el color al pasar el cursor, si es necesario */
+    color: #023535;
   }
 
 

@@ -1,15 +1,15 @@
 <template>
     <div class="main-container">
-      <div class="login-container">
-          <div class="login-container-header">
-            <img src="./../../public/logos/rogil-logo.jpg" alt="Logo-rogil" class="logo-login"/>
+      <div class="reset-container">
+          <div class="reset-container-header">
+            <img src="./../../public/logos/rogil-logo.jpg" alt="Logo-rogil" class="logo-reset"/>
           </div>
-          <form class="login-form-container" @submit.prevent="loginProcess">
-            <div class="login-header">
+          <form class="reset-form-container" @submit.prevent="loginProcess">
+            <div class="reset-header">
               <strong>Reset your Password</strong> 
               <p>To reset your password, you need an administrator user to complete this request.</p>    
             </div>
-            <div class="login-body">
+            <div class="reset-body">
               <div class="aminuser-section">
                 <p>Administrator user</p>
                 <input id="username-entry" placeholder="Username" v-model="email" required />
@@ -21,11 +21,11 @@
                 <input id="confirm-password" placeholder="Confirm password" v-model="confirmpassword" required />
               </div>
             </div>
-            <div class="login-button">
+            <div class="reset-button">
               <button type="submit">Submit</button>
             </div>
           </form>
-          <div class="login-container-footer">
+          <div class="reset-container-footer">
             <p>© 2024 Rights Reserved</p>
           </div>
       </div>
@@ -54,7 +54,7 @@
       background-size: cover;
     }
   
-    .login-container {
+    .reset-container {
       height: 100vh; 
       width: 100vw; 
       display: flex;
@@ -64,7 +64,7 @@
       background-color: #FFF;
     }
   
-    .login-container-header{
+    .reset-container-header{
       height: 8%;
       width: 100vw;
       box-sizing: border-box;
@@ -75,13 +75,13 @@
       font-size: medium;
     }
   
-    .logo-login{
+    .logo-reset{
       height: 40%;
       width: auto;
     }
   
-    .login-form-container{
-      height: 60vh;
+    .reset-form-container{
+      height: 65vh;
       width: 25vw;
       display: flex;
       flex-direction: column;
@@ -89,9 +89,10 @@
       justify-content: space-between;
     }
   
-    .login-header {
+    .reset-header {
       text-align: center;
       color: #023535;
+      margin-bottom: 20px;
     }
     
     strong{
@@ -106,7 +107,7 @@
       font-weight: 500;
     }
     
-    .login-body {
+    .reset-body {
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -162,7 +163,7 @@
   
     
   
-    .login-button{
+    .reset-button{
       width: 100%;
     }
   
@@ -183,7 +184,7 @@
       color: #FFF;
     }
   
-    .login-container-footer{
+    .reset-container-footer{
       height: 8%;
       width: 100vw;
       box-sizing: border-box;

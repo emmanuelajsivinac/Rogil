@@ -28,6 +28,7 @@
 <script>
 export default {
     name: 'DashboardSearchSection',
+
     data() {
         return {
         greeting: null,
@@ -74,7 +75,7 @@ export default {
 
 .section-A{
     height: 100%;
-    width: 85%;
+    width: 80%;
     padding: 0;
     margin: 0;
     display: flex;
@@ -101,12 +102,13 @@ p{
 
 .section-B{
     height: 100%;
-    width: 15%;
+    width: 20%;
     padding: 0;
     margin: 0;
     font-size: small;
     display: flex;
     flex-direction: column;
+    align-content: center;
     justify-content:flex-start;
 }
 
@@ -114,25 +116,30 @@ p{
     margin: 0;
     padding: 0;
     display: flex;
-    height: 3vh;
+    height: 50%;
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
 }
 
 .search{
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .line-v{
-    width: 1%;
-    height: 100%;
+    width: 1px;
+    height: 60%;
     background-color: #d1d6d7;
 }
 
 .notification{
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,6 +147,8 @@ p{
 
 .screen-view{
     width: 49%;
+    height: 100%;
+    padding-left: 5PX;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,6 +160,9 @@ button{
     border: none;
     border-radius: 4px;
     background-color: #d1d6d7;
+    font-size: 90%;
+    font-weight:500;
+    color: #000;
 }
 
 button:hover{
@@ -158,10 +170,8 @@ button:hover{
 }
 
 img{
-    height: 90%;
+    height:20px;
     width: auto;
 }
-
-
 
 </style>
