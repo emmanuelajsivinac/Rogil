@@ -10,12 +10,14 @@
         </div>
         <div class="section-B">
             <div class="options-section">
-                <div class="search">                
-                    <img src="./../../public/icons/busqueda.png">
+                <div class="search">
+                    <button class="search-button" @click="emitShowComponent">    
+                    </button>                
                 </div>
                 <div class="line-v"></div>
                 <div class="notification">
-                    <img src="./../../public/icons/campana.png">
+                    <button class="notification-button">    
+                    </button>  
                 </div>
                 <div class="screen-view">
                     <button>Full screen</button>
@@ -58,17 +60,23 @@ export default {
         loadCredentials() {
         this.email = localStorage.getItem('email') || '';
         console.log('Email cargado:', this.email); 
-        }
+        },
+
+        emitShowComponent() {
+            this.$emit('showComponent'); // Emite el evento al componente padre
+        },
     }
 };
 </script>
 
 <style scoped>
 .search-section{
-    box-sizing:border-box;
+    box-sizing: border-box;
     height: 100%;
     width: 100%;
-    padding:0;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
     display: flex;
     align-items: center; 
 } 
@@ -126,11 +134,27 @@ p{
 }
 
 .search{
-    width: 20%;
+    width: 15%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
+
+.search-button{
+    border: none;
+    background-color: inherit;
+    background-image: url('./../../public/icons/busqueda.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
 
 .line-v{
     width: 1px;
@@ -139,11 +163,27 @@ p{
 }
 
 .notification{
-    width: 20%;
+    width: 15%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
+
+.notification-button{
+    border: none;
+    background-color: inherit;
+    background-image: url('./../../public/icons/campana.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding: 0;
+}
+
 
 .screen-view{
     width: 49%;

@@ -85,11 +85,7 @@
 
         loadCredentials() {
           this.email = localStorage.getItem('email') || '';
-        }//,
-
-        //resetPassword(){
-        //  this.$router.push('/resetpassword');
-        //}
+        }
       }
 
   }

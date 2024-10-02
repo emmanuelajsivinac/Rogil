@@ -57,7 +57,7 @@ export default {
                 const response = await fetch('https://dummyjson.com/icon/abc123/150');
                 if (response.ok) {
                     const picture = await response.blob();
-                    this.userPictureURL = URL.createObjectURL(picture); // Asignar directamente a la propiedad
+                    this.userPictureURL = URL.createObjectURL(picture);
                 }
             } catch (error) {
                 console.log(error);
