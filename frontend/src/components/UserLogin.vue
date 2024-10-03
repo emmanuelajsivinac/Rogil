@@ -2,12 +2,12 @@
   <div class="main-container">
     <div class="login-container">
         <div class="login-container-header">
-          <img src="./../../public/logos/logo-v1.png" alt="Logo-rogil" class="logo-login"/>
+          <img src="./../../public/logos/rogil-logo.jpg" alt="Logo-rogil" class="logo-login"/>
         </div>
         <form class="login-form-container" @submit.prevent="loginProcess">
           <div class="login-header">
-            <h1>Welcome!</h1> 
-            <h5>We are ready to manage the inventory.</h5>    
+            <strong>Welcome!</strong> 
+            <h4>We are ready to manage the inventory.</h4>    
           </div>
           <div class="login-body">
             <input id="username-entry" placeholder="Username" v-model="email" required />
@@ -17,10 +17,10 @@
                 <input type="checkbox">
                 Keep me logged in
               </label>
-              <label>Forgot password?</label>
+              <router-link to="/resetpassword" class="custom-link" >Forgot password?</router-link>
             </div>
           </div>
-          <div class="login-button">
+          <div class="login-button"> 
             <button type="submit">Sign In</button>
           </div>
         </form>
@@ -35,6 +35,7 @@
 </template>
   
 <script>
+
   export default {
       data() {
         return {
@@ -84,7 +85,6 @@
         loadCredentials() {
           this.email = localStorage.getItem('email') || '';
         }
-
       }
 
   }
@@ -102,7 +102,7 @@
     flex-direction:row;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: #FFF;
     background-size: cover;
   }
 
@@ -113,7 +113,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: #EBF1F2;
+    background-color: #FFF;
     border-radius: 8px; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
@@ -125,8 +125,8 @@
     display: flex;
     align-items: center;
     padding-left: 30px;
-    color: #7c7b7b;
-    font-size: smaller;
+    color: #FFF;
+    font-size: medium;
   }
 
   .logo-login{
@@ -146,18 +146,19 @@
   .login-header {
     text-align: center;
     margin-bottom: 40px;
-    color:#3E5902;
+    color: #023535;
   }
   
-  h1{
+  strong{
     padding: 0px;
     margin: 0px;
+    font-size: xx-large;
   }
   
-  h5{
+  h4{
     padding: 0px;
     margin: 0px;
-    font-weight: 300;
+    font-weight: 500;
   }
   
   .login-body {
@@ -170,63 +171,59 @@
   input {
     height: 3vw;
     box-sizing:border-box;
-    padding: 8px;
-    border: 1px solid #3d590223;
+    padding: 15px;
+    border: 1px solid #AFB09D;
     border-radius: 8px;
-    background-color: #EBF1F2;
-    color: #3E5902;
+    background-color: #FFF;
+    color: #015958;
+    font-weight: 500;
+    font-size: medium;
   }
 
   input:focus{
     outline: none;
-    border: 1px solid #D93280;
+    border: 1px solid #045a5a;
   }
+
+  input.-webkit-autofill {
+    border-color: transparent !important; /* Color cuando está lleno */
+}
 
   .options-section{
+    margin: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-size: small;
-    font-weight: 600;
-    color:#D93280;  
+    font-weight: 500;
+    color:#015958;  
   }  
 
+  .custom-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .custom-link:hover {
+    color: #023535;
+  }
+
+
   .checkbox-keep-log{
+    margin: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     font-size: small;
+    height: 30px;
+  }
+
+  input[type="checkbox"]{
+    margin-right: 10px;
   }
   
-  input[type="checkbox"] {
-    appearance: none;
-    width: 10px;
-    height: 10px;
-    margin-right: 10px;
-    border: 1px solid #F2C335;
-    border-radius: 4px;
-    background-color: #EBF1F2;
-    position: relative; /* Añade position relative para el posicionamiento del after */
-  }
-
-  input[type="checkbox"]:checked {
-    background-color: #F2C335; /* Fondo al seleccionar */
-    border-color: #F2C335; /* Borde del mismo color que el fondo */
-  }
-
-  input[type="checkbox"]:checked::after {
-    content: '\2714'; /* Símbolo de check */
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    position: absolute;
-    top: 50%; /* Posiciona en el medio verticalmente */
-    left: 50%; /* Posiciona en el medio horizontalmente */
-    transform: translate(-50%, -50%); /* Ajuste para centrar completamente */
-  }
-
 
   .login-button{
     width: 100%;
@@ -235,16 +232,18 @@
   button{
     width: inherit;
     height: 3vw;
-    background: #83A603;
-    color: #fff;
+    background: #023535;
+    color: #FFF;
     border: none;
     border-radius: 4px;
     margin-top: 20px;
+    font-weight: 500;
+    font-size: medium;
   }
 
   button:hover{
-    background: #3E5902;
-    color: #fff;
+    background: #015958;
+    color: #FFF;
   }
 
   .login-container-footer{
@@ -253,10 +252,11 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding-left: 30px;
-    color: #D93280;
-    font-size: x-small;
-    font-weight: bold;
+    color: #818274;
+    font-size: smaller;
+    font-weight: 500;
   }
 
   .image-container {
