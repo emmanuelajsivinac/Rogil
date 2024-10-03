@@ -55,20 +55,19 @@
               },
               body: JSON.stringify({
                 email: this.email,
-                password: this.password
+                password: this.password,
               })
             });
 
             if (response.ok) {
               const data = await response.json();
-              console.log('Respuesta recibida:', data); // Verifica los datos
+              console.log('Respuesta recibida:', data);
 
               // Guarda el token en localStorage
               localStorage.setItem('token', data.token); 
               localStorage.setItem('email', this.email);
 
               console.log(localStorage); // Para ver todos los valores guardados
-
               // Redirige al dashboard
               this.$router.push('/dashboard');
             } else {
