@@ -14,6 +14,7 @@
              </transition>
             <div class="dashboard">
                 <AdvertisingSection />
+                <DashboardHome />
             </div>
         </div>
     </div>
@@ -24,13 +25,16 @@ import DashboardMenu from './DashboardMenu.vue';
 import DashboardSearchSection from './DashboardSearchSection.vue';
 import SearchEntry  from './SearchEntry.vue';
 import AdvertisingSection from './AdvertisingSection.vue';
+import DashboardHome from './DashboardHome.vue';
+
 export default {
   name: 'DashboardBase',
   components:{
     DashboardMenu,
     DashboardSearchSection,
     SearchEntry,
-    AdvertisingSection
+    AdvertisingSection,
+    DashboardHome
   },
 
   data(){
