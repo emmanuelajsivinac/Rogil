@@ -1,0 +1,233 @@
+-- Tabla Productos
+CREATE TABLE Productos (
+    id_producto INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    codigo_barras VARCHAR(50) UNIQUE,
+    id_categoria INT,
+    id_proveedor INT,
+    precio_venta DECIMAL(10, 2) NOT NULL,
+    precio_compra DECIMAL(10, 2) NOT NULL,
+    fecha_vencimiento DATE,
+    cantidad_stock INT NOT NULL,
+    minimo_stock INT NOT NULL,
+    ubicacion VARCHAR(255),
+    activo BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria),
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor)
+);
+
+-- Tabla Categorias
+CREATE TABLE Categorias (
+    id_categoria INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT
+);
+
+-- Tabla Proveedores
+CREATE TABLE Proveedores (
+    id_proveedor INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(255) NOT NULL,
+    direccion TEXT,
+    telefono VARCHAR(20),
+    correo_electronico VARCHAR(255),
+    contacto VARCHAR(255)
+);
+
+-- Tabla Inventario_Movimientos
+CREATE TABLE Inventario_Movimientos (
+    id_movimiento INT PRIMARY KEY AUTO_INCREMENT,
+    id_producto INT,
+    fecha_movimiento DATE NOT NULL,
+    tipo_movimiento ENUM('Entrada', 'Salida', 'Ajuste') NOT NULL,
+    cantidad INT NOT NULL,
+    observaciones TEXT,
+    id_empleado INT,
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+-- Tabla Compras
+CREATE TABLE Compras (
+    id_compra INT PRIMARY KEY AUTO_INCREMENT,
+    id_proveedor INT,
+    fecha_compra DATE NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    id_empleado INT,
+    estado ENUM('pendiente', 'completada', 'cancelada') NOT NULL,
+    FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+-- Tabla Detalles_Compra
+CREATE TABLE Detalles_Compra (
+    id_detalle_compra INT PRIMARY KEY AUTO_INCREMENT,
+    id_compra INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2) AS (cantidad * precio_unitario),
+    FOREIGN KEY (id_compra) REFERENCES Compras(id_compra),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+
+-- Tabla Ventas
+CREATE TABLE Ventas (
+    id_venta INT PRIMARY KEY AUTO_INCREMENT,
+    fecha_venta DATE NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    nombre_cliente VARCHAR(255),
+    email_cliente VARCHAR(255),
+    telefono_cliente VARCHAR(20),
+    id_empleado INT,
+    estado ENUM('completada', 'cancelada') NOT NULL,
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+-- Tabla Detalles_Venta
+CREATE TABLE Detalles_Venta (
+    id_detalle_venta INT PRIMARY KEY AUTO_INCREMENT,
+    id_venta INT,
+    id_producto INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    subtotal DECIMAL(10, 2) AS (cantidad * precio_unitario),
+    FOREIGN KEY (id_venta) REFERENCES Ventas(id_venta),
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
+);
+
+-- Tabla Ajustes_Inventario
+CREATE TABLE Ajustes_Inventario (
+    id_ajuste INT PRIMARY KEY AUTO_INCREMENT,
+    id_producto INT,
+    fecha_ajuste DATE NOT NULL,
+    cantidad_ajustada INT NOT NULL,
+    motivo TEXT NOT NULL,
+    id_empleado INT,
+    FOREIGN KEY (id_producto) REFERENCES Productos(id_producto),
+    FOREIGN KEY (id_empleado) REFERENCES Empleados(id_empleado)
+);
+
+
+
+-------------------------------------------------------------------------
+inserto 
+
+--CATEGORIAS 
+INSERT INTO Categorias (nombre, descripcion) VALUES
+('Medicamentos', 'Productos farmacéuticos para tratar enfermedades'),
+('Vitaminas', 'Suplementos vitamínicos para la salud'),
+('Suplementos', 'Productos para mejorar el bienestar general'),
+('Cuidado personal', 'Productos para la higiene y cuidado personal'),
+('Dermatología', 'Productos especializados para el cuidado de la piel'),
+('Antiinflamatorios', 'Medicamentos para reducir la inflamación'),
+('Antibióticos', 'Medicamentos para combatir infecciones bacterianas'),
+('Antigripales', 'Productos para tratar síntomas de gripe'),
+('Analgésicos', 'Medicamentos para aliviar el dolor'),
+('Homeopáticos', 'Medicamentos alternativos basados en la homeopatía');
+
+--PROVEEDORES 
+INSERT INTO Proveedores (nombre, direccion, telefono, correo_electronico, contacto) VALUES
+('Farmacéuticos Salud S.A.', 'Av. San Martín 1234', '555-1234', 'contacto@saludsa.com', 'Carlos Pérez'),
+('Laboratorios Vital', 'Calle Central 4321', '555-5678', 'ventas@vital.com', 'María Gómez'),
+('Distribuidora FarmaPlus', 'Boulevard Industrial 456', '555-7890', 'info@farmaplus.com', 'Pedro Ramírez'),
+('MedLab Internacional', 'Zona Franca 123', '555-0987', 'clientes@medlab.com', 'Ana Torres'),
+('Suplementos Naturales', 'Calle 8 No. 234', '555-5432', 'soporte@naturales.com', 'José Martínez'),
+('Pharma Global', 'Carrera 50 No. 100', '555-6543', 'ventas@pharmaglobal.com', 'Laura Sánchez'),
+('Vitalidad Suplementos', 'Ruta 90 Km 25', '555-3456', 'vitalidad@suplementos.com', 'Javier Fernández'),
+('Distribuciones Médicas', 'Sector Industrial 5', '555-4567', 'ventas@medicas.com', 'Diego Rivera'),
+('Farma Internacional', 'Av. Sur 3000', '555-5679', 'contacto@farmaint.com', 'Lucía Hernández'),
+('Naturaleza Viva', 'Colinas del Este 12', '555-6789', 'info@naturalezaviva.com', 'Raúl Medina');
+
+--PRODUCTOS 
+INSERT INTO Productos (nombre, descripcion, codigo_barras, id_categoria, id_proveedor, precio_venta, precio_compra, fecha_vencimiento, cantidad_stock, minimo_stock, ubicacion, activo) VALUES
+('Paracetamol 500mg', 'Analgésico y antipirético', '1234567890123', 9, 1, 5.50, 3.00, '2025-08-12', 100, 10, 'Pasillo 1 - Estante 3', TRUE),
+('Vitamina C 1000mg', 'Suplemento de vitamina C', '2345678901234', 2, 2, 8.00, 4.50, '2024-12-01', 50, 5, 'Pasillo 2 - Estante 1', TRUE),
+('Ibuprofeno 400mg', 'Antiinflamatorio no esteroideo', '3456789012345', 6, 1, 6.75, 3.75, '2025-06-30', 80, 15, 'Pasillo 1 - Estante 4', TRUE),
+('Antibiótico Amoxicilina 500mg', 'Tratamiento de infecciones bacterianas', '4567890123456', 7, 1, 12.50, 7.50, '2024-09-15', 60, 10, 'Pasillo 1 - Estante 5', TRUE),
+('Suplemento Omega 3', 'Aceite de pescado rico en Omega 3', '5678901234567', 3, 5, 15.00, 9.00, '2025-05-05', 40, 5, 'Pasillo 3 - Estante 2', TRUE),
+('Antigripal Compuesto', 'Alivia los síntomas del resfriado y gripe', '6789012345678', 8, 3, 7.25, 4.00, '2024-10-20', 70, 10, 'Pasillo 2 - Estante 3', TRUE),
+('Crema Dermatológica', 'Tratamiento para irritaciones de la piel', '7890123456789', 5, 4, 18.00, 10.50, '2025-01-10', 30, 5, 'Pasillo 3 - Estante 1', TRUE),
+('Vitaminas B Complex', 'Suplemento vitamínico del complejo B', '8901234567890', 2, 6, 10.00, 6.00, '2024-11-05', 50, 8, 'Pasillo 2 - Estante 2', TRUE),
+('Homeopático Rescate', 'Tratamiento homeopático para el estrés', '9012345678901', 10, 9, 20.00, 12.00, '2025-07-25', 25, 3, 'Pasillo 4 - Estante 1', TRUE),
+('Shampoo Anticaspa', 'Cuidado del cabello con fórmula anticaspa', '0123456789012', 4, 2, 12.75, 7.25, '2025-03-12', 45, 8, 'Pasillo 3 - Estante 4', TRUE);
+
+--INVENTARIO_MOVIMIENTOS
+INSERT INTO Inventario_Movimientos (id_producto, fecha_movimiento, tipo_movimiento, cantidad, observaciones, id_empleado) VALUES
+(1, '2024-09-01', 'Entrada', 50, 'Reposición de stock', 1),
+(2, '2024-09-02', 'Entrada', 30, 'Reposición de stock', 2),
+(3, '2024-09-03', 'Entrada', 40, 'Reposición de stock', 3),
+(4, '2024-09-05', 'Entrada', 20, 'Reposición de stock', 4),
+(5, '2024-09-06', 'Entrada', 15, 'Reposición de stock', 1),
+(6, '2024-09-07', 'Entrada', 10, 'Reposición de stock', 2),
+(7, '2024-09-08', 'Entrada', 35, 'Reposición de stock', 3),
+(8, '2024-09-09', 'Entrada', 25, 'Reposición de stock', 4),
+(9, '2024-09-10', 'Entrada', 45, 'Reposición de stock', 1),
+(10, '2024-09-11', 'Entrada', 50, 'Reposición de stock', 2);
+
+--COMPRAS 
+INSERT INTO Compras (id_proveedor, fecha_compra, total, id_empleado, estado) VALUES
+(1, '2024-09-01', 250.00, 1, 'completada'),
+(2, '2024-09-02', 150.00, 2, 'completada'),
+(3, '2024-09-03', 300.00, 3, 'completada'),
+(4, '2024-09-04', 100.00, 4, 'pendiente'),
+(5, '2024-09-05', 200.00, 1, 'completada'),
+(6, '2024-09-06', 400.00, 2, 'completada'),
+(7, '2024-09-07', 120.00, 3, 'cancelada'),
+(8, '2024-09-08', 180.00, 4, 'completada'),
+(9, '2024-09-09', 90.00, 1, 'pendiente'),
+(10, '2024-09-10', 220.00, 2, 'completada');
+
+--DETALLES_COMPRA
+INSERT INTO Detalles_Compra (id_compra, id_producto, cantidad, precio_unitario) VALUES
+(1, 1, 50, 5.00),
+(2, 2, 30, 4.50),
+(3, 3, 40, 3.75),
+(4, 4, 20, 7.50),
+(5, 5, 15, 9.00),
+(6, 6, 10, 4.00),
+(7, 7, 35, 10.50),
+(8, 8, 25, 6.00),
+(9, 9, 45, 12.00),
+(10, 10, 50, 7.25);
+
+--VENTAS 
+INSERT INTO Ventas (fecha_venta, total, nombre_cliente, email_cliente, telefono_cliente, id_empleado, estado) VALUES
+('2024-09-01', 120.00, 'Juan Pérez', 'juan.perez@example.com', '555-1234', 1, 'completada'),
+('2024-09-02', 80.00, 'María Gómez', 'maria.gomez@example.com', '555-5678', 2, 'completada'),
+('2024-09-03', 150.00, 'Carlos Sánchez', 'carlos.sanchez@example.com', '555-7890', 3, 'completada'),
+('2024-09-04', 200.00, 'Ana Torres', 'ana.torres@example.com', '555-0987', 4, 'cancelada'),
+('2024-09-05', 50.00, 'Pedro Ramírez', 'pedro.ramirez@example.com', '555-5432', 1, 'completada'),
+('2024-09-06', 100.00, 'Laura Sánchez', 'laura.sanchez@example.com', '555-6543', 2, 'completada'),
+('2024-09-07', 75.00, 'José Martínez', 'jose.martinez@example.com', '555-3456', 3, 'cancelada'),
+('2024-09-08', 95.00, 'Diego Rivera', 'diego.rivera@example.com', '555-4567', 4, 'completada'),
+('2024-09-09', 45.00, 'Lucía Hernández', 'lucia.hernandez@example.com', '555-5679', 1, 'completada'),
+('2024-09-10', 130.00, 'Raúl Medina', 'raul.medina@example.com', '555-6789', 2, 'completada');
+
+--DETALLES_VENTA 
+INSERT INTO Detalles_Venta (id_venta, id_producto, cantidad, precio_unitario) VALUES
+(1, 1, 10, 5.50),
+(2, 2, 5, 8.00),
+(3, 3, 8, 6.75),
+(4, 4, 12, 12.50),
+(5, 5, 6, 15.00),
+(6, 6, 9, 7.25),
+(7, 7, 3, 18.00),
+(8, 8, 4, 10.00),
+(9, 9, 7, 20.00),
+(10, 10, 5, 12.75);
+
+--AJUSTES_INVENTARIO 
+INSERT INTO Ajustes_Inventario (id_producto, fecha_ajuste, cantidad_ajustada, motivo, id_empleado) VALUES
+(1, '2024-09-01', 5, 'Ajuste por inventario físico', 1),
+(2, '2024-09-02', -2, 'Devolución de producto', 2),
+(3, '2024-09-03', 10, 'Ajuste por error en el stock', 3),
+(4, '2024-09-04', -5, 'Producto vencido', 4),
+(5, '2024-09-05', 3, 'Ajuste por compra errónea', 1),
+(6, '2024-09-06', -1, 'Pérdida por manejo', 2),
+(7, '2024-09-07', 4, 'Ajuste por cambio en proveedor', 3),
+(8, '2024-09-08', -3, 'Devolución por cliente', 4),
+(9, '2024-09-09', 7, 'Ajuste por exceso en inventario', 1),
+(10, '2024-09-10', -6, 'Producto dañado en almacén', 2);
+
+
