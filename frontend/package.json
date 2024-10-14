@@ -10,6 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "vue": "^3.4.29",
     "vue-router": "^4.0.13",
     "vuex": "^4.0.2"

@@ -52,7 +52,6 @@ export default {
   height: 100%;
   width: 58%; /* Ajusta la altura del contenedor principal */
   overflow: hidden; /* Oculta cualquier desbordamiento */
-  background-color: #dfdfdf;
   border-radius: 4px
 }
 

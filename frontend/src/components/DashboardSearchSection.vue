@@ -2,7 +2,7 @@
     <div class="search-section">
         <div class="section-A">
             <div class="greeting-section">
-                <strong>{{ greeting }} {{ email }} !</strong>
+                <strong>{{ greeting }} {{ username }} !</strong>
             </div>
             <div class="date-section">
                 <p>{{ formated_date }}</p>
@@ -34,8 +34,8 @@ export default {
     data() {
         return {
         greeting: null,
-        email: '',
-        formated_date: null
+        username: '',
+        formated_date: null,
         };
     },
 
@@ -58,12 +58,11 @@ export default {
             
     methods: {
         loadCredentials() {
-        this.email = localStorage.getItem('email') || '';
-        console.log('Email cargado:', this.email); 
+        this.username = localStorage.getItem('username') || '';
         },
 
         emitShowComponent() {
-            this.$emit('showComponent'); // Emite el evento al componente padre
+            this.$emit('showComponent');
         },
     }
 };

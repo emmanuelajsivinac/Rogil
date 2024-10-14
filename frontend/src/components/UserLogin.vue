@@ -35,42 +35,48 @@
 </template>
   
 <script>
-
+  import bcrypt from 'bcryptjs';
   export default {
       data() {
         return {
           email: '',
           password: '',
-          errorMessage: ''
+          errorMessage: '',
+          username: '',
+          usercode:'',
+          userrole:'',
         };
       },
       methods: {
         async loginProcess() {
-          console.log('Intentando iniciar sesión con:', this.email, this.password);
-
           try {
-            const response = await fetch('https://reqres.in/api/login', {
+            const encryptedPassword = await this.encryptPassword(this.password);
+            const response = await fetch('http://192.168.0.7:9090/login', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
                 email: this.email,
-                password: this.password,
+                password: encryptedPassword,
               })
             });
 
             if (response.ok) {
               const data = await response.json();
-              console.log('Respuesta recibida:', data);
+              this.username = this.capitalizeLargeWord(data.name || '');
+              this.userrole = this.capitalizeShortWord(data.role || '');
+              this.usercode = encodeURIComponent(String(data.uscode));
 
-              // Guarda el token en localStorage
               localStorage.setItem('token', data.token); 
-              localStorage.setItem('email', this.email);
+              localStorage.setItem('username', this.username);
+              localStorage.setItem('usercode',this.usercode);
+              localStorage.setItem('userrole',this.userrole);
 
-              console.log(localStorage); // Para ver todos los valores guardados
-              // Redirige al dashboard
+              console.log(localStorage);
+
               this.$router.push('/dashboard');
+  
             } else {
               const errorData = await response.json();
               console.error('Error en la respuesta:', errorData); // Verifica el error
@@ -82,9 +88,28 @@
           }
         },
 
-        loadCredentials() {
-          this.email = localStorage.getItem('email') || '';
+        //loadCredentials() {
+        //  this.username = localStorage.getItem('name') || '';
+        //},
+
+        async encryptPassword(password) {
+          const salt = await bcrypt.genSalt(12);
+          const hashedPassword = await bcrypt.hash(password, salt);
+          return hashedPassword;
+        },
+
+        capitalizeShortWord(textvalue) {
+          return textvalue.charAt(0).toUpperCase() + textvalue.slice(1).toLowerCase();
+        },
+
+
+        capitalizeLargeWord(textvalue) {
+          return textvalue
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
         }
+
       }
 
   }

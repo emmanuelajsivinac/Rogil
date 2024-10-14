@@ -1,11 +1,14 @@
 <template>
     <div class="background-container">
         <div class="menu-section">
-            <DashboardMenu />
+            <DashboardMenu @show-submenus="showSubMenusSection"/>
         </div>
         <div class="line-h">
         </div>
-        <div class="dashboard-section">
+        <div class="dashboard-section" @click="handleOutsideClick">
+            <div>
+                <SubMenusSection v-if="showSubMenus" ref="submenuSection" class="overlay1"/>
+            </div>
             <div class="dashboard-searchsection">
                 <DashboardSearchSection @showComponent="showComponent" />
             </div>
@@ -26,6 +29,7 @@ import DashboardSearchSection from './DashboardSearchSection.vue';
 import SearchEntry  from './SearchEntry.vue';
 import AdvertisingSection from './AdvertisingSection.vue';
 import DashboardHome from './DashboardHome.vue';
+import SubMenusSection from './SubMenusSection.vue';
 
 export default {
   name: 'DashboardBase',
@@ -34,12 +38,14 @@ export default {
     DashboardSearchSection,
     SearchEntry,
     AdvertisingSection,
-    DashboardHome
+    DashboardHome,
+    SubMenusSection
   },
 
   data(){
     return {
         showSearchEntry:false,
+        showSubMenus: false, 
     };
   },
 
@@ -47,7 +53,44 @@ export default {
     showComponent() {
       this.showSearchEntry = !this.showSearchEntry; // Cambia el estado a verdadero para mostrar el componente
     },
+
+    showSubMenusSection() {
+      this.showSubMenus = true; // Cambia el estado para mostrar SubMenusSection
+    },
+
+    handleOutsideClick(event) {
+        if (!this.showSubMenus) return; // Solo sigue si los submenús están visibles
+
+        const submenuEl = this.$refs.submenuSection;
+        if (submenuEl && submenuEl.contains && !submenuEl.contains(event.target)) {
+            this.showSubMenus = false; // Oculta el submenú si se hace clic afuera
+        }
+    }
+
+
   },
+
+  mounted() {
+    // Agregar el evento click al documento para detectar clics fuera del submenú
+    document.addEventListener('click', this.handleOutsideClick);
+  },
+
+  beforeUnmount() {
+    // Limpiar el evento para evitar fugas de memoria
+    document.removeEventListener('click', this.handleOutsideClick);
+  },
+
+  watch: {
+  showSubMenus(newVal) {
+    if (newVal) {
+      document.addEventListener('click', this.handleOutsideClick);
+    } else {
+      document.removeEventListener('click', this.handleOutsideClick);
+    }
+  }
+}
+
+
 };
 </script>
 
@@ -81,6 +124,19 @@ export default {
     background-color: #fff;
 }
 
+
+.overlay1{
+    position: absolute;
+    box-sizing: border-box;
+    top: 12%;
+    height: 175px;
+    max-height: 200px;
+    width: 220px;
+    padding-top:20px;
+    background-color: transparent;
+    z-index: 10;
+}
+
 .dashboard-searchsection {
     height: 15vh;
     width: 100%;
@@ -101,7 +157,6 @@ export default {
     z-index: 2;
     transition: all 0.5s ease-in-out;
 }
-
 /* Estilos de transición */
 .slide-enter-active, .slide-leave-active {
     transition: all 0.5s ease;
