@@ -66,23 +66,15 @@
               },
               body: JSON.stringify({
                 email: this.email,
-<<<<<<< HEAD
                 password: encryptedPassword,
-=======
-                password: this.password
->>>>>>> d876868837dd5067231606731b92b6b01cfdd999
               })
             });
 
             if (response.ok) {
               const data = await response.json();
-<<<<<<< HEAD
               this.username = this.capitalizeLargeWord(data.name || '');
               this.userrole = this.capitalizeShortWord(data.role || '');
               this.usercode = encodeURIComponent(String(data.uscode));
-=======
-              console.log('Respuesta recibida:', data); // Verifica los datos
->>>>>>> d876868837dd5067231606731b92b6b01cfdd999
 
               localStorage.setItem('token', data.token); 
               localStorage.setItem('username', this.username);
@@ -91,12 +83,6 @@
 
               console.log(localStorage);
 
-<<<<<<< HEAD
-=======
-              console.log(localStorage); // Para ver todos los valores guardados
-
-              // Redirige al dashboard
->>>>>>> d876868837dd5067231606731b92b6b01cfdd999
               this.$router.push('/dashboard');
   
             } else {
