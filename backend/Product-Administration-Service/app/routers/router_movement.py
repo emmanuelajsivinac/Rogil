@@ -69,27 +69,3 @@ def delete_inventory_movement(id_movement: int, db: Session = Depends(get_db)):
     db.commit()
 
     return inventory_movement
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
